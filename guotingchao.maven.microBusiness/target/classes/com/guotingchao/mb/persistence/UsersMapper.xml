@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.guotingchao.mb.persistence.UsersMapper">
+
+	<cache />
+
+	<insert id="insertUser" parameterType="Users">
+		INSERT INTO
+		Users
+		(
+			wx_Id
+		)
+		VALUES
+		(
+			#{wx_Id},
+		)
+  </insert>
+
+	<update id="updateUser" parameterType="Users">
+		update Users set
+		wx_Id = #{wx_Id},
+		WHERE id = #{id}
+  </update>
+  
+	<select id="getUserById" parameterType="Long" resultType="Users">
+		select * from Users where id=#{id} 
+	</select>
+	
+	<select id="getUserByWxId" parameterType="String" resultType="Users">
+		select * from Users where wx_Id=#{wx_Id}
+	</select>
+</mapper>
