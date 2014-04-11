@@ -1,25 +1,9 @@
-/**   
- * @Title: Message.java
- * @Package com.guotingchao.mb.model
- * @Description: TODO(用一句话描述该文件做什么)
- * @author guotingchaopr guotingchaopr@gmail.com
- * @date 2014-4-6 下午2:28:49
- * @version V1.0   
- */
 package com.guotingchao.mb.model;
 
 import java.io.Serializable;
 import java.util.Date;
 
 import com.thoughtworks.xstream.annotations.XStreamOmitField;
-
-/**
- * @ClassName: Message
- * @Description: TODO(这里用一句话描述这个类的作用)
- * @author guotingchaopr guotingchaopr@gmail.com
- * @date 2014-4-6 下午2:28:49
- * 
- */
 public class Message implements Serializable {
 	private static final long serialVersionUID = -8419091445771412565L;
 	/**
@@ -217,7 +201,8 @@ public class Message implements Serializable {
 	 * @see java.lang.Object#toString()
 	 */
 	public String toString() {
-		return "FromUserName : " + this.getFromUserName() + "ToUserName" + toUserName + "\n" +
-			   "MsgId: " + getId();
+		return " FromUserName : " + this.getFromUserName() + " \n ToUserName" + this.getToUserName()  +
+			   "\n MsgId: " + this.getMsgId() + "\n Content: " + this.getContent() + "\n Event: " + this.getEvent()+
+			   "\n MsgType: " + this.getMsgType() ;
 	}
 }

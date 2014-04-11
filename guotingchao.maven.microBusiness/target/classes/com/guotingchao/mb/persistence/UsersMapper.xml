@@ -5,29 +5,34 @@
 
 	<cache />
 
-	<insert id="insertUser" parameterType="Users">
+	<insert id="insertUser" parameterType="String" useGeneratedKeys="true" keyProperty="id">
 		INSERT INTO
 		Users
 		(
-			wx_Id
+			wx_id
 		)
 		VALUES
 		(
-			#{wx_Id},
+			#{wx_id}
 		)
-  </insert>
+  	</insert>
 
-	<update id="updateUser" parameterType="Users">
+	<update id="updateUser" parameterType="int">
 		update Users set
 		wx_Id = #{wx_Id},
 		WHERE id = #{id}
-  </update>
-  
-	<select id="getUserById" parameterType="Long" resultType="Users">
+    </update>
+   
+    <delete  id="deleteUser" parameterType="String">
+		delete from Users 
+		WHERE id = #{id}
+    </delete>
+   
+	<select id="getUserById" parameterType="Long" resultType="Users" flushCache="true">
 		select * from Users where id=#{id} 
 	</select>
 	
-	<select id="getUserByWxId" parameterType="String" resultType="Users">
+	<select id="getUserByWxId" parameterType="String" resultType="Users" flushCache="true">
 		select * from Users where wx_Id=#{wx_Id}
 	</select>
 </mapper>

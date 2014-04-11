@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.guotingchao.mb.persistence.ConfigMapper">
+
+	<cache />
+
+	<insert id="insertConfig" parameterType="Config">
+		INSERT INTO
+		Config
+		(
+		conf_key,
+		conf_value
+		)
+		VALUES
+		(
+		#{conf_key},
+		#{conf_value}
+		)
+	</insert>
+
+	<update id="updateConfig" parameterType="Config">
+		update Config set
+		conf_key = #{conf_key},
+		conf_value = #{conf_value}
+		WHERE id = #{id}
+	</update>
+
+	<select id="getConfigById" parameterType="Long" resultType="Config">
+		select * from Config where id=#{id}
+	</select>
+	
+	
+	<select id="getConfig"   resultType="Config">
+		select * from Config;
+	</select>
+</mapper>

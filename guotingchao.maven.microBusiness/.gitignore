@@ -2,3 +2,4 @@
 .setting/
 pom.xml
 		
+/target

@@ -24,6 +24,8 @@ import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
 
 import com.guotingchao.mb.model.Article;
+import com.guotingchao.mb.model.Classes;
+import com.guotingchao.mb.model.GolbalConfig;
 import com.guotingchao.mb.model.Message;
 import com.guotingchao.mb.model.Reply;
 import com.thoughtworks.xstream.XStream;
@@ -41,13 +43,13 @@ import com.thoughtworks.xstream.io.xml.XppDriver;
  */
 public class WeiXinUtil {
 	
+	private static final String TOKEN = "guotingchaopr"; 
 	
 	private static XStream xstream = new XStream(new XppDriver() {  
         public HierarchicalStreamWriter createWriter(Writer out) {  
             return new PrettyPrintWriter(out) {  
                 // 对所有xml节点的转换都增加CDATA标记  
                 boolean cdata = true;  
-                @SuppressWarnings("unchecked")  
                 public void startNode(String name, Class clazz) {  
                     super.startNode(name, clazz);  
                 }  
@@ -84,14 +86,48 @@ public class WeiXinUtil {
 			return key;
 		}
 	}
-
+	/***
+	 * 
+	* @Title: level_0_process
+	* @Description: 0 级 提示预处理
+	* @param @param request    设定文件
+	* @return void    返回类型
+	* @throws
+	 */
+    public static void level_0_process(HttpServletRequest request,Object obj){
+		StringBuffer content= new StringBuffer();
+		content.append("\n ===[亲，请输入对应菜单选项进入进行选择 === \n");
+		for(Classes classes : (List<Classes>)obj){
+			content.append("  " + classes.getId()+ " " + classes.getClassName() + "\n");
+		}
+			content.append("[您当前所在位置=主菜单=");
+			request.setAttribute("UR_LEVEL_PROCESSED", content.toString());
+    }
+    
+    /***
+	 * 
+	* @Title: level_1_process
+	* @Description: 1 级 提示预处理
+	* @param @param request    设定文件
+	* @return void    返回类型
+	* @throws
+	 */
+    public static void level_1_process(HttpServletRequest request,Object obj){
+		StringBuffer content= new StringBuffer();
+		content.append("\n ===[亲，请输入对应菜单选项进入进行选择 === \n");
+		for(Classes classes : (List<Classes>)obj){
+			content.append("  " + classes.getId()+ " " + classes.getClassName() + "\n");
+		}
+			content.append("\n 输入0  【返回上一层】 【您当前所在位置 商家选择】");
+			request.setAttribute("UR_LEVEL_PROCESSED", content.toString());
+    }
 	
 	/**
 	 * 存储数据的Map转换为对应的Message对象
 	 * @param map 存储数据的map
 	 * @return 返回对应Message对象
 	 */
-	public static  Message  mapToMessage(Map<String,String> map){
+	public static Message mapToMessage(Map<String,String> map){
 		if(map == null) return null;
 		String msgType = map.get("MsgType");
 		Message message = new Message();
@@ -167,11 +203,33 @@ public class WeiXinUtil {
 			List<Element> elementList = root.elements();
 			for (Element e : elementList)
 				map.put(e.getName(), e.getText());
-			inputStream.close();
-			inputStream = null;
+				inputStream.close();
+				inputStream = null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return map;
+	}
+	
+
+	/**
+	 * 根据token计算signature验证是否为weixin服务端发送的消息
+	 */
+	public static boolean checkWeixinReques(HttpServletRequest request) {
+		String signature = request.getParameter("signature");
+		String timestamp = request.getParameter("timestamp");
+		String nonce = request.getParameter("nonce");
+		if (signature != null && timestamp != null && nonce != null) {
+			String[] strSet = new String[] { TOKEN, timestamp, nonce };
+			java.util.Arrays.sort(strSet);
+			String key = "";
+			for (String string : strSet) {
+				key = key + string;
+			}
+			String pwd = WeiXinUtil.sha1(key);
+			return pwd.equals(signature);
+		} else {
+			return false;
+		}
 	}
 }

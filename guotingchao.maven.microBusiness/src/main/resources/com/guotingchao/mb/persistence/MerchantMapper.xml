@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.guotingchao.mb.persistence.MerchantMapper">
+
+	<cache />
+
+	<insert id="insertMerchant" parameterType="int">
+    </insert>
+
+	<update id="updateMerchant" parameterType="int">
+    </update>
+   
+    <delete  id="deleteMerchantById" parameterType="int">
+		delete from merchant 
+		WHERE id = #{id}
+    </delete>
+   
+	<select id="getMerchantById" parameterType="int" resultType="Merchant">
+		select * from merchant where id=#{id} 
+	</select>
+	
+	<select id="getMerchantsByClassId" parameterType="int" resultType="Merchant">
+		select * from merchant where tradeClass=#{classId} 
+	</select>
+	
+	<select id="getMerchantAll" resultType="Merchant">
+		select * from merchant
+	</select>
+</mapper>

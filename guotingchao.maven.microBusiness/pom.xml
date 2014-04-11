@@ -5,7 +5,7 @@
 	<artifactId>guotingchao.maven.microBusiness</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>guotingchao.maven.microBusiness Maven Webapp</name>
+	<name>guotingchao.maven.microBusiness</name>
 	<url>http://maven.apache.org</url>
 	<dependencies>
 		<dependency>
@@ -63,6 +63,11 @@
 			<groupId>dom4j</groupId>
 			<artifactId>dom4j</artifactId>
 		    <version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>1.2.15</version>
 		</dependency>
 	</dependencies>
 	<build>
