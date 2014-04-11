@@ -1,3 +1,5 @@
 *.class
 build.gradle
 pom.xml
+.gitignore
+/.settings/*.*

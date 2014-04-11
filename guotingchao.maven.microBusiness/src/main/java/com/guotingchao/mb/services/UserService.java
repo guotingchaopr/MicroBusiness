@@ -27,11 +27,11 @@ public class UserService{
 	@Autowired
 	private UsersMapper usersMapper;
 
-	public void insertUser(Users user) {
-		usersMapper.insertUser(user);
+	public int insertUser(Users user) {
+		return usersMapper.insertUser(user);
 	}
     @Transactional(rollbackFor=Exception.class)
-	public void updateUser(Users user) {
+	public int updateUser(Users user) {
     	usersMapper.updateUser(user);
 		throw new RuntimeException();
 	}

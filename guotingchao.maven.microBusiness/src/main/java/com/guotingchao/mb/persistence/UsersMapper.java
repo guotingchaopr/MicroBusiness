@@ -18,8 +18,8 @@ import com.guotingchao.mb.model.Users;
  * 
  */
 public interface UsersMapper {
-	public void insertUser(Users user);
-	public void updateUser(Users user);
+	public int insertUser(Users user);
+	public int updateUser(Users user);
 	public Users getUserById(Long id);
 	public Users getUserByWxId(String wx_id);
 }
